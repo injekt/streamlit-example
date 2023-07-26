@@ -10,9 +10,9 @@ llm = OpenAI()
 chat_model = ChatOpenAI()
 
 
-print_hi(llm.predict("中国的首都是"))
+llm.predict("中国的首都是")
 
-print_hi(chat_model.predict("中国的首都是"))
+chat_model.predict("中国的首都是")
 
 """
 # Welcome to Streamlit!!!!!
