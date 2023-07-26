@@ -3,6 +3,16 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+from langchain.llms import OpenAI
+from langchain.chat_models import ChatOpenAI
+
+llm = OpenAI()
+chat_model = ChatOpenAI()
+
+
+print_hi(llm.predict("中国的首都是"))
+
+print_hi(chat_model.predict("中国的首都是"))
 
 """
 # Welcome to Streamlit!!!!!
