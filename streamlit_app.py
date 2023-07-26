@@ -13,9 +13,10 @@ chat_model = ChatOpenAI()
 """
 # Welcome to Streamlit!!!!!
 """
-st.title("LLM" + llm.predict("中国的首都是"))
+st.echo("sdsdsdsds")
+st.echo("LLM" + llm.predict("中国的首都是"))
 
-st.title("Chat Model" + chat_model.predict("中国的首都是"))
+st.echo("Chat Model" + chat_model.predict("中国的首都是"))
 
 """
 Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
