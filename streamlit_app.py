@@ -1,50 +1,15 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
 from langchain.llms import OpenAI
-from langchain.chat_models import ChatOpenAI
+st.set_page_config(page_title="🦜🔗 Quickstart App")
+st.title('🦜🔗 Quickstart App')
 
-llm = OpenAI()
-chat_model = ChatOpenAI()
+temperature = st.sidebar.number_input('temperature', min_value=0.0, max_value=1.0, value=0.7, step=0.1)
 
+def generate_response(input_text):
+  llm = OpenAI(temperature=temperature)
+  st.info(llm(input_text))
 
-"""
-# Welcome to Streamlit!!!!!
-"""
-st.echo("sdsdsdsds")
-st.echo("LLM" + llm.predict("中国的首都是"))
-
-st.echo("Chat Model" + chat_model.predict("中国的首都是"))
-
-"""
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
-
-
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+with st.form('my_form'):
+  text = st.text_area('Enter text:', 'What are the three key pieces of advice for learning how to code?')
+  submitted = st.form_submit_button('Submit')
+  generate_response(text)
